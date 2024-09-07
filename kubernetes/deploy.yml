@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -11,12 +11,6 @@ spec:
     matchLabels:
       app: nimble-platform
       name: catalog-search-service
-  strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
-  revisionHistoryLimit: 5
   template:
     metadata:
       labels:
@@ -53,4 +47,4 @@ spec:
           - name: USE_SOLR_INDEX
             value: 'true'
           - name: PORT
-            value: 8090
+            value: '8090'
