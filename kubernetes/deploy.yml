@@ -24,11 +24,11 @@ spec:
         name: catalog-search-service
     spec:
       containers:
-      - image: nimbleplatform/catalog-search-service
+      - image: 'rannybal2024/catalog-search-service:IMAGE_TAG'
         imagePullPolicy: Always
         name: catalog-search-service
         ports:
-        - containerPort: 9096
+        - containerPort: 8090
           name: http
           protocol: TCP
         resources:
@@ -38,23 +38,19 @@ spec:
         env:
           - name: SPRING_PROFILES_ACTIVE
             value: kubernetes
+          - name: CONFIG_SERVER_FAILFAST
+            value: "true"
           - name: DISCOVERY_ENABLED
+            value: "true"
+          - name: DISCOVERY_SERVER_URI
+            value: "http://service-discovery:8761"
+          - name: DISCOVERY_PREFER_IP
             value: "false"
-
----
-
-kind: Service
-metadata:
-  name: catalog-search-service
-  labels:
-    app: nimble-platform
-    name: catalog-search-service
-spec:
-  ports:
-    - name: http
-      protocol: TCP
-      port: 9096
-      targetPort: 9096
-  selector:
-    app: nimble-platform
-    name: catalog-search-service
+          - name: MARMOTTA_URL
+            value: 'http://marmotta:8080'
+          - name: LANGUAGE_LABEL
+            value: 'http://www.w3.org/2004/02/skos/core#prefLabel'
+          - name: USE_SOLR_INDEX
+            value: 'true'
+          - name: PORT
+            value: 8090
