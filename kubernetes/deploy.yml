@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: nimble-platform
   name: catalog-search-service
   namespace: nimble-platform
+  labels:
+    app: nimble-platform
 spec:
   replicas: 1
   selector:
@@ -16,9 +16,8 @@ spec:
         app: catalog-search-service
     spec:
       containers:
-      - image: 'rannybal2024/catalog-search-service:IMAGE_TAG'
-        imagePullPolicy: Always
-        name: catalog-search-service
+      - name: catalog-search-service
+        image: 'rannybal2024/catalog-search-service:IMAGE_TAG'
         ports:
         - containerPort: 8090
           name: http
