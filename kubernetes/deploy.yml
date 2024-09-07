@@ -3,19 +3,17 @@ kind: Deployment
 metadata:
   labels:
     app: nimble-platform
-    name: catalog-search-service
   name: catalog-search-service
+  namespace: nimble-platform
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nimble-platform
       name: catalog-search-service
   template:
     metadata:
       labels:
-        app: nimble-platform
-        name: catalog-search-service
+        app: catalog-search-service
     spec:
       containers:
       - image: 'rannybal2024/catalog-search-service:IMAGE_TAG'
