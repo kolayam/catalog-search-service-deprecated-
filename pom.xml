@@ -246,9 +246,15 @@
 				<artifactId>git-commit-id-plugin</artifactId>
 				<executions>
 					<execution>
+						<id>revision</id>
+						<phase>none</phase>
 						<goals>
 							<goal>revision</goal>
 						</goals>
+						<configuration>
+							<!-- Skip the plugin execution -->
+							<skip>true</skip>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
