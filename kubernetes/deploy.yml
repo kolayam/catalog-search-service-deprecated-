@@ -27,8 +27,12 @@ spec:
             cpu: 200m
             memory: 256Mi
         env:
+          - name: _JAVA_OPTIONS
+            value: "-Xms512m -Xmx512m"
           - name: SPRING_PROFILES_ACTIVE
             value: 'productive'
+          - name: CATALOG_SEARCH_CONFIG
+            value: /resources/sqpConfiguration-produtive.xml
           - name: CONFIG_SERVER_URI
             value: 'http://config-server:8888'
           - name: CONFIG_SERVER_FAILFAST
@@ -39,8 +43,6 @@ spec:
             value: "http://service-discovery:8761"
           - name: DISCOVERY_PREFER_IP
             value: "false"
-          - name: MARMOTTA_URL
-            value: 'http://marmotta:8080'
           - name: LANGUAGE_LABEL
             value: 'http://www.w3.org/2004/02/skos/core#prefLabel'
           - name: USE_SOLR_INDEX
