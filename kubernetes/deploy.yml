@@ -48,6 +48,6 @@ spec:
           - name: USE_SOLR_INDEX
             value: 'true'
           - name: MARMOTTA_URL
-            value: 'null'
+            value: 'http://marmotta:8080'
           - name: PORT
             value: '8090'
