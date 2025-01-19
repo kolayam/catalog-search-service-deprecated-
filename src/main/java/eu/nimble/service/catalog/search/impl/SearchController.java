@@ -56,7 +56,6 @@ import eu.nimble.service.catalog.search.impl.dao.output.Reference;
 import eu.nimble.service.catalog.search.impl.dao.output.TranslationResult;
 import eu.nimble.service.catalog.search.mediator.MediatorEntryPoint;
 import eu.nimble.service.catalog.search.mediator.MediatorSPARQLDerivationAndExecution;
-import eu.nimble.service.catalog.search.services.NimbleAdaptionServiceOfSearchResults;
 import eu.nimble.service.catalog.search.services.SQPDerivationService;
 
 @Controller
@@ -365,6 +364,7 @@ public class SearchController {
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<Object>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
