@@ -338,7 +338,7 @@ public class SearchController {
 			Gson gson = new Gson();
 			InputParameterdetectMeaningLanguageSpecific inputParameterdetectMeaningLanguageSpecific = gson
 					.fromJson(inputAsJson, InputParameterdetectMeaningLanguageSpecific.class);
-					Logger.getAnonymousLogger().info("hConfiguration :" + hConfiguration.toString());
+			Logger.getAnonymousLogger().log(Level.INFO, "hConfiguration :" + hConfiguration.toString());
 			if (!useSOLRIndex || hConfiguration.getDetectMeaningLanguageSpecific()!=TypeOfDataSource.SOLR){
 			List<Entity> concepts = sparqlDerivation.detectPossibleConceptsLanguageSpecific(
 					inputParameterdetectMeaningLanguageSpecific.getKeyword(),
