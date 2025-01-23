@@ -49,6 +49,8 @@ spec:
             value: 'true'
           - name: SOLR_URL
             value: http://solr:8983
+          - name: MARMOTTA_URL
+            value: 'null'
           - name: PORT
             value: '8090'
           
