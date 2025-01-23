@@ -89,6 +89,9 @@ public class SearchController {
 	@Value("${nimble.shared.property.hybridConfiguration}")
 	private String hybridConfiguration;
 
+	@Value("${nimble.shared.property.solrUrl}")
+	private String solrUrl;
+
 	private MediatorSPARQLDerivationAndExecution sparqlDerivation = null;
 	private SQPDerivationService sQPDerivationService = null;
 	//private NimbleAdaptionServiceOfSearchResults nimbleAdaptionServiceOfSearchResults = null;
@@ -114,7 +117,12 @@ public class SearchController {
 			if (useSOLRIndex){
 				
 				if (marmottaUri == null || marmottaUri.equals(NULL_ASSIGNED_VALUE)){
-				this.solrReader = new SOLRReader();
+				// this.solrReader = new SOLRReader();
+				String url = solrUrl + "/solr/" + "item";
+				String urlForIntensionalQueriesProperties =  solrUrl + "/solr/"+ "props";
+				String urlForIntensionalQueriesConcepts =  solrUrl + "/solr/"+ "item";
+				this.solrReader = new SOLRReader(url, urlForIntensionalQueriesProperties, urlForIntensionalQueriesConcepts);
+
 				}
 				else{
 					String prefix = "";
@@ -156,7 +164,11 @@ public class SearchController {
 		if (useSOLRIndex && this.solrReader==null){
 			
 			if (marmottaUri == null || marmottaUri.equals(NULL_ASSIGNED_VALUE)){
-				this.solrReader = new SOLRReader();
+				
+				String url = solrUrl + "/solr/" + "catalogue2";
+				String urlForIntensionalQueriesProperties =  solrUrl + "/solr/"+ "props";
+				String urlForIntensionalQueriesConcepts =  solrUrl + "/solr/"+ "catalogue2";
+				this.solrReader = new SOLRReader(url, urlForIntensionalQueriesProperties, urlForIntensionalQueriesConcepts);
 				}
 				else{
 					String prefix = "";

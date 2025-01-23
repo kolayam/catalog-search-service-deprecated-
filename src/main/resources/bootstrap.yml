@@ -19,6 +19,19 @@ spring:
 logstash:
   uri: ${LOGSTASH_URI:localhost:5000}
 
+nimble:
+  shared:
+    property:
+      marmottauri: ${MARMOTTA_URL:null}
+      languagelabel: ${LANGUAGE_LABEL:}
+      useSOLRIndex: ${USE_SOLR_INDEX:true}
+      hybridConfiguration: ${HYBRID_CONFIG:detectMeaningLanguageSpecific}
+      solrUrl: ${SOLR_URL:}
+      catalogue:
+        search:
+          configuration: ${CATALOG_SEARCH_CONFIG:/resources/sqpConfiguration-default.xml}
+
+
 management:
   health:
     solr:
@@ -35,6 +48,7 @@ nimble:
       marmottauri: ${MARMOTTA_URL:}
       languagelabel: ${LANGUAGE_LABEL:}
       useSOLRIndex: ${USE_SOLR_INDEX:true}
+      solrUrl: ${SOLR_URL:}
       hybridConfiguration: ${HYBRID_CONFIG:detectMeaningLanguageSpecific}
       catalogue:
         search:

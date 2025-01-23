@@ -47,7 +47,8 @@ spec:
             value: 'http://www.w3.org/2004/02/skos/core#prefLabel'
           - name: USE_SOLR_INDEX
             value: 'true'
-          - name: MARMOTTA_URL
-            value: 'http://marmotta:8080'
+          - name: SOLR_URL
+            value: http://solr:8983
           - name: PORT
             value: '8090'
+          

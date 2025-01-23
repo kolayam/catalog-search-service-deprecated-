@@ -52,13 +52,16 @@ public class SOLRReader implements IReader {
 	private HttpSolrClient client = null;
 	private HttpSolrClient clientForIntensionalQueriesProperties = null;
 	private HttpSolrClient clientForIntensionalQueriesConcepts = null;
-	private String url = "https://nimble-platform.salzburgresearch.at/marmotta/solr/catalogue2";
-	private String urlForIntensionalQueriesProperties = "https://nimble-platform.salzburgresearch.at/marmotta/solr/properties";
-	private String urlForIntensionalQueriesConcepts = "https://nimble-platform.salzburgresearch.at/marmotta/solr/Concepts";
+	private String url = "http://localhost:8983/solr/catalogue2";
+	private String urlForIntensionalQueriesProperties = "http://localhost:8983/solr/props";
+	private String urlForIntensionalQueriesConcepts = "http://localhost:8983/solr/Concepts";
 
-	private final String labelFieldForSpanish = "label_es";
-	private final String labelFieldForEnglish = "label_en";
-	private final String labelFieldForGerman = "label_de";
+	// private final String labelFieldForSpanish = "label_es";
+	// private final String labelFieldForEnglish = "label_en";
+	// private final String labelFieldForGerman = "label_de";
+	private final String labelFieldForSpanish = "es_label";
+	private final String labelFieldForEnglish = "en_label";
+	private final String labelFieldForGerman = "de_label";
 
 	private EntityMappingService entityMappingService;
 
@@ -350,9 +353,13 @@ public class SOLRReader implements IReader {
 
 	@Override
 	public List<String> getAllConcepts(String arg0) {
-		String query = "item_commodity_classification_mix: *\"" + arg0 + "\"*";
+		// String query = "item_commodity_classification_mix: *\"" + arg0 + "\"*";
+		String query = "commodityClassficationUri: *\"" + arg0 + "\"*";
+
 		Object response = queryIntensionalConcepts(query);
-		List<String> result = createResultList(response, "item_commodity_classification_mix");
+		// List<String> result = createResultList(response, "item_commodity_classification_mix");
+		List<String> result = createResultList(response, "commodityClassficationUri");
+
 		List<String> finalResult = new ArrayList<String>();
 		String searchTermLowerCase = arg0.toLowerCase();
 		result.forEach(str -> {
