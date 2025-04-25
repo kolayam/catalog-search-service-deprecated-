@@ -122,7 +122,7 @@ public class SearchController {
 					// this.solrReader = new SOLRReader();
 					String url = solrUrl + "/solr/" + "item";
 					String urlForIntensionalQueriesProperties = solrUrl + "/solr/" + "props";
-					String urlForIntensionalQueriesConcepts = solrUrl + "/solr/" + "item";
+					String urlForIntensionalQueriesConcepts = solrUrl + "/solr/" + "class";
 					this.solrReader = new SOLRReader(url, urlForIntensionalQueriesProperties,
 							urlForIntensionalQueriesConcepts);
 					
@@ -478,7 +478,7 @@ public class SearchController {
 	}
 
 	public String helperForLogicalView(InputParamterForGetLogicalView paramterForGetLogicalView) {
-		Logger.getAnonymousLogger().log(Level.INFO, "Invoke: getLogicalView:.");
+		Logger.getAnonymousLogger().log(Level.INFO, "Invoke: getLogicalView:." + paramterForGetLogicalView);
 		LocalOntologyView referenceLocalViewRoot = null;
 
 		Gson gson = new Gson();

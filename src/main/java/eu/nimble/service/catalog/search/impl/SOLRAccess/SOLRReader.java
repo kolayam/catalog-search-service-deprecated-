@@ -49,14 +49,14 @@ import com.google.gson.JsonElement;
 
 public class SOLRReader implements IReader {
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SOLRReader.class);
-	private static final String LMF_URI = "lmf.uri";
+	private static final String LMF_URI = "id";
 	private static final String FIELD_FOR_PROPERTY_URI = LMF_URI;
 	private HttpSolrClient client = null;
 	private HttpSolrClient clientForIntensionalQueriesProperties = null;
 	private HttpSolrClient clientForIntensionalQueriesConcepts = null;
 	private String url = "http://localhost:8983/solr/catalogue2";
 	private String urlForIntensionalQueriesProperties = "http://localhost:8983/solr/props";
-	private String urlForIntensionalQueriesConcepts = "http://localhost:8983/solr/Concepts";
+	private String urlForIntensionalQueriesConcepts = "http://localhost:8983/solr/class";
 
 	// private final String labelFieldForSpanish = "label_es";
 	// private final String labelFieldForEnglish = "label_en";
@@ -396,7 +396,7 @@ public class SOLRReader implements IReader {
 			entity.setLanguage(Language.UNKNOWN);
 
 			String[] tokens = new String[2];
-			int index = concept.lastIndexOf(":");
+			int index = concept.lastIndexOf(concept.contains("#")?"#":":");
 			tokens[0] = concept.substring(0, index);
 			tokens[1] = concept.substring(index + 1);
 			if (tokens.length == 2 && tokens[0].length() > 0) {
