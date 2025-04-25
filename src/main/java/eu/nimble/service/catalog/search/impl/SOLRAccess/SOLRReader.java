@@ -510,7 +510,7 @@ public class SOLRReader implements IReader {
 	 */
 	@Override
 	public List<String> getAllPropertiesIncludingEverything(String arg0) {
-		String query = "used_in:*" + arg0 + "";
+		String query = "used_in:*" + arg0.replace(":", "\\:") + "";
 		logger.info("getAllPropertiesIncludingEverything: " + query);
 		Object response = queryIntensionalProperties(query);
 		// Object response = queryIntensionalConcepts(query);
