@@ -780,7 +780,7 @@ public class SOLRReader implements IReader {
 	}
 
 	public String translateConcept(String conceptURL, Language language) {
-		String query = LMF_URI + ":\"" + conceptURL + "\"";
+		String query = LMF_URI + ":*" + conceptURL + "";
 		String fieldOfInterest = deriveFieldFromLanguage(language);
 		logger.info("query: "+query + " fieldOfInterest: " + fieldOfInterest);
 		Object response = queryIntensionalConcepts(query);
