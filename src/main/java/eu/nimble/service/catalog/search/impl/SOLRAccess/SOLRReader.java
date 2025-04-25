@@ -612,17 +612,17 @@ public class SOLRReader implements IReader {
 
 	@Override
 	public PropertyType getPropertyType(String arg0) {
-		String query = "lmf.uri:\"" + arg0 + "\"";
+		String query = LMF_URI+":*" + arg0 + "";
 		Object response = queryIntensionalProperties(query);
-		List<String> result = createResultList(response, "lmf.type");
+		List<String> result = createResultList(response, "propType");
 		if (result.size() > 0) {
 
 			for (String pType : result) {
 				pType = pType.replace(" ", "");
-				if (pType.equals("http://www.w3.org/2002/07/owl#ObjectProperty")) {
+				if (pType.contains("ObjectProperty")) {
 					return PropertyType.OBJECTPROPERTY;
 				}
-				if (pType.equals("http://www.w3.org/2002/07/owl#DatatypeProperty")) {
+				if (pType.contains("DatatypeProperty")) {
 					return PropertyType.DATATYPEPROPERTY;
 				}
 				Logger.getAnonymousLogger().log(Level.WARNING, "Found no propertyType for: " + arg0);
