@@ -24,6 +24,7 @@ import de.biba.triple.store.access.enums.ConceptSource;
 import de.biba.triple.store.access.enums.Language;
 import de.biba.triple.store.access.enums.PropertyType;
 import eu.nimble.service.catalog.search.factories.ValueGroupingFactory;
+import eu.nimble.service.catalog.search.impl.SearchController;
 import eu.nimble.service.catalog.search.impl.dao.Group;
 import eu.nimble.service.catalog.search.impl.dao.LocalOntologyView;
 import eu.nimble.service.catalog.search.impl.dao.enums.PropertySource;
@@ -42,11 +43,12 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
+import org.slf4j.LoggerFactory;
 
 import com.google.gson.JsonElement;
 
 public class SOLRReader implements IReader {
-
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SOLRReader.class);
 	private static final String LMF_URI = "lmf.uri";
 	private static final String FIELD_FOR_PROPERTY_URI = LMF_URI;
 	private HttpSolrClient client = null;
@@ -357,7 +359,8 @@ public class SOLRReader implements IReader {
 		String query = "commodityClassficationUri: *\"" + arg0 + "\"*";
 
 		Object response = queryIntensionalConcepts(query);
-		// List<String> result = createResultList(response, "item_commodity_classification_mix");
+		// List<String> result = createResultList(response,
+		// "item_commodity_classification_mix");
 		List<String> result = createResultList(response, "commodityClassficationUri");
 
 		List<String> finalResult = new ArrayList<String>();
@@ -762,6 +765,7 @@ public class SOLRReader implements IReader {
 	public String translateConcept(String conceptURL, Language language) {
 		String query = LMF_URI + ":\"" + conceptURL + "\"";
 		String fieldOfInterest = deriveFieldFromLanguage(language);
+		logger.info("query: "+query + " fieldOfInterest: " + fieldOfInterest);
 		Object response = queryIntensionalConcepts(query);
 		if (response == null) {
 			Logger.getAnonymousLogger().log(Level.WARNING, "Cannot translate the concept...." + conceptURL);
@@ -789,21 +793,21 @@ public class SOLRReader implements IReader {
 	private String deriveFieldFromLanguage(Language language) {
 		String queryPrefix = "";
 		switch (language) {
-		case ENGLISH:
-			queryPrefix = labelFieldForEnglish;
-			break;
-		case GERMAN:
-			queryPrefix = labelFieldForGerman;
-			break;
-		case SPANISH:
-			queryPrefix = labelFieldForSpanish;
-			break;
+			case ENGLISH:
+				queryPrefix = labelFieldForEnglish;
+				break;
+			case GERMAN:
+				queryPrefix = labelFieldForGerman;
+				break;
+			case SPANISH:
+				queryPrefix = labelFieldForSpanish;
+				break;
 
-		default:
-			Logger.getAnonymousLogger().log(Level.WARNING,
-					"Received no language information. Use the English translation");
-			queryPrefix = labelFieldForEnglish;
-			break;
+			default:
+				Logger.getAnonymousLogger().log(Level.WARNING,
+						"Received no language information. Use the English translation");
+				queryPrefix = labelFieldForEnglish;
+				break;
 		}
 
 		return queryPrefix;
