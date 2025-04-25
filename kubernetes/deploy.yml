@@ -53,4 +53,6 @@ spec:
             value: 'null'
           - name: PORT
             value: '8090'
+          - name: HYBRID_CONFIG
+            value: "detectMeaningLanguageSpecific,executeSPARQLWithOptionalSelect,executeSPARQLSelect,getPropertyValuesDiscretised,getReferencesFromAConcept,getPropertyValuesFromGreenGroup,getPropertyValuesFromOrangeGroup,getLogicalView,getPropertyFromConcept,getInstantiatedPropertiesFromConcept"
           

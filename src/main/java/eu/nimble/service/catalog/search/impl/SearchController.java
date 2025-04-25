@@ -74,7 +74,7 @@ public class SearchController {
 	@Value("${nimble.shared.property.marmottauri:null}")
 	private String marmottaUri;
 
-	@Value("${nimble.shared.property.useSOLRIndex:false}")
+	@Value("${nimble.shared.property.useSOLRIndex:true}")
 	private boolean useSOLRIndex;
 
 	@Value("${nimble.shared.property.useSimplifiedSPARQL:true}")
@@ -126,7 +126,7 @@ public class SearchController {
 					this.solrReader = new SOLRReader(url, urlForIntensionalQueriesProperties,
 							urlForIntensionalQueriesConcepts);
 					
-					logger.info("init solr .......");
+					logger.info("init solr ......." + this.solrReader);
 				} else {
 					String prefix = "";
 					char lastCharacter = marmottaUri.charAt(marmottaUri.length() - 1);
@@ -652,6 +652,7 @@ public class SearchController {
 	@RequestMapping(value = "/getPropertyFromConcept", method = RequestMethod.GET)
 	HttpEntity<Object> getPropertyFromConcept(@RequestParam("inputAsJson") String inputAsJson) {
 		logger.info("inputAsJson" +inputAsJson);
+		logger.info("useSOLRIndex " +useSOLRIndex);
 		try {
 			Gson gson = new Gson();
 			InputParamterForGetLogicalView inputParamterForGetLogicalView = gson.fromJson(inputAsJson,
