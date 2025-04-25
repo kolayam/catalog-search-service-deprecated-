@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.jena.sparql.function.library.uuid;
+import org.slf4j.LoggerFactory;
 
 import de.biba.triple.store.access.IPropertyValuesCrawler;
 import de.biba.triple.store.access.IReader;
@@ -21,6 +22,7 @@ import de.biba.triple.store.access.jena.Reader;
 import de.biba.triple.store.access.marmotta.MarmottaPropertyValuesCrawler;
 import de.biba.triple.store.access.marmotta.MarmottaReader;
 import eu.nimble.service.catalog.search.factories.ValueGroupingFactory;
+import eu.nimble.service.catalog.search.impl.SearchController;
 import eu.nimble.service.catalog.search.impl.dao.DataPoint;
 import eu.nimble.service.catalog.search.impl.dao.Filter;
 import eu.nimble.service.catalog.search.impl.dao.Group;
@@ -42,7 +44,7 @@ import eu.nimble.service.catalog.search.impl.dao.sqp.SQPConfiguration;
 import eu.nimble.service.catalog.search.services.SQPDerivationService;
 
 public class MediatorSPARQLDerivationAndExecution {
-
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(MediatorSPARQLDerivationAndExecution.class);
 	public static final String FURNITURE2_OWL = "furniture2.owl";
 	private IReader reader = null;
 	private IPropertyValuesCrawler propertyValuesCrawler = null;
@@ -1128,12 +1130,15 @@ public class MediatorSPARQLDerivationAndExecution {
 	}
 
 	public OutputForPropertiesFromConcept getAllTransitiveProperties(String concept) {
+		logger.info("concept: " + concept);
 		concept = getURIOfConcept(concept);
+		logger.info("getURIOfConcept: " + concept);
+		logger.info("reader: " + reader);
 		if (needANimbleSpecificAdapation()) {
 			return nimbleSpecificSPARQLDeriviation.getAllPropertiesIncludingEverything(concept);
 		} else {
 			OutputForPropertiesFromConcept result = new OutputForPropertiesFromConcept();
-
+			
 			List<String> properties = reader.getAllPropertiesIncludingEverything(concept);
 			for (String urlOfProperty : properties) {
 				PropertyType propertyType = reader.getPropertyType(urlOfProperty);
