@@ -612,7 +612,8 @@ public class SOLRReader implements IReader {
 
 	@Override
 	public PropertyType getPropertyType(String arg0) {
-		String query = LMF_URI+":*" + arg0 + "";
+		String query = LMF_URI+":" + arg0.replace(":", "\\:");
+		logger.info("getPropertyType: " + query);
 		Object response = queryIntensionalProperties(query);
 		List<String> result = createResultList(response, "propType");
 		if (result.size() > 0) {
