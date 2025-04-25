@@ -52,6 +52,10 @@ public class MediatorSPARQLDerivationAndExecution {
 	private NimbleSpecificSPARQLDeriviationAndExecution nimbleSpecificSPARQLDeriviation = null;
 	private SQPDerivationService sqpDerivationService = null;
 
+	public MediatorSPARQLDerivationAndExecution(IReader reader){
+		this.reader = reader;
+	}
+
 	public MediatorSPARQLDerivationAndExecution() {
 		File f = new File(FURNITURE2_OWL);
 		if (f.exists()) {

@@ -115,7 +115,7 @@ public class SearchController {
 
 		if ((ontologyFile == null || ontologyFile.equals(NULL_ASSIGNED_VALUE))
 				&& (marmottaUri == null || marmottaUri.equals(NULL_ASSIGNED_VALUE))) {
-			sparqlDerivation = new MediatorSPARQLDerivationAndExecution();
+			sparqlDerivation = new MediatorSPARQLDerivationAndExecution(this.solrReader);
 			if (useSOLRIndex) {
 
 				if (marmottaUri == null || marmottaUri.equals(NULL_ASSIGNED_VALUE)) {
@@ -125,7 +125,8 @@ public class SearchController {
 					String urlForIntensionalQueriesConcepts = solrUrl + "/solr/" + "item";
 					this.solrReader = new SOLRReader(url, urlForIntensionalQueriesProperties,
 							urlForIntensionalQueriesConcepts);
-
+					
+					logger.info("init solr .......");
 				} else {
 					String prefix = "";
 					char lastCharacter = marmottaUri.charAt(marmottaUri.length() - 1);
