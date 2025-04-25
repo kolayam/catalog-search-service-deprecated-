@@ -216,6 +216,7 @@ public class SOLRReader implements IReader {
 			QueryResponse response = itemClient.query(query);
 			return response;
 		} catch (Exception e) {
+			e.printStackTrace();
 			Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
 		}
 		return null;
@@ -231,6 +232,7 @@ public class SOLRReader implements IReader {
 			QueryResponse response = itemClient.query(query);
 			return response;
 		} catch (Exception e) {
+			e.printStackTrace();
 			Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
 		}
 		return null;
@@ -247,6 +249,7 @@ public class SOLRReader implements IReader {
 			QueryResponse response = clientForIntensionalQueriesProperties.query(query);
 			return response;
 		} catch (Exception e) {
+			e.printStackTrace();
 			Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
 		}
 		return null;
