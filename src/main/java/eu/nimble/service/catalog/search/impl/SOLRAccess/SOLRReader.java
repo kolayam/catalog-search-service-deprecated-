@@ -51,7 +51,7 @@ public class SOLRReader implements IReader {
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(SOLRReader.class);
 	private static final String LMF_URI = "id";
 	private static final String FIELD_FOR_PROPERTY_URI = LMF_URI;
-	private HttpSolrClient client = null;
+	private HttpSolrClient itemClient = null;
 	private HttpSolrClient clientForIntensionalQueriesProperties = null;
 	private HttpSolrClient clientForIntensionalQueriesConcepts = null;
 	private String url = "http://localhost:8983/solr/catalogue2";
@@ -98,7 +98,7 @@ public class SOLRReader implements IReader {
 		// client = new HttpSolrClient.Builder(url).build();
 		// clientForIntensionalQueries = new
 		// HttpSolrClient.Builder(urlForIntensionalQueries).build();
-		client = new HttpSolrClient(url, httpClient);
+		itemClient = new HttpSolrClient(url, httpClient);
 		clientForIntensionalQueriesProperties = new HttpSolrClient(urlForIntensionalQueriesProperties, httpClient);
 		clientForIntensionalQueriesConcepts = new HttpSolrClient(urlForIntensionalQueriesConcepts, httpClient);
 
@@ -197,7 +197,7 @@ public class SOLRReader implements IReader {
 		query.setStart(0);
 		// query.set("defType", "edismax");
 		try {
-			QueryResponse response = client.query(query);
+			QueryResponse response = itemClient.query(query);
 			return response;
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
@@ -213,7 +213,7 @@ public class SOLRReader implements IReader {
 		query.setStart(0);
 		// query.set("defType", "edismax");
 		try {
-			QueryResponse response = client.query(query);
+			QueryResponse response = itemClient.query(query);
 			return response;
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
@@ -228,7 +228,7 @@ public class SOLRReader implements IReader {
 		query.setFilterQueries(filter);
 		query.setStart(0);
 		try {
-			QueryResponse response = client.query(query);
+			QueryResponse response = itemClient.query(query);
 			return response;
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
@@ -253,6 +253,23 @@ public class SOLRReader implements IReader {
 	}
 
 	public Object queryIntensionalConcepts(String arg0) {
+		SolrQuery query = new SolrQuery();
+		query.setQuery(arg0);
+		// query.addFilterQuery("cat:electronics","store:amazon.com");
+		query.setFields("*");
+		query.setStart(0);
+		// query.set("defType", "edismax");
+		try {
+			QueryResponse response = clientForIntensionalQueriesConcepts.query(query);
+			return response;
+		} catch (Exception e) {
+			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.WARNING, e.getMessage());
+		}
+		return null;
+	}
+
+	public Object queryIntensionalItem(String arg0) {
 		SolrQuery query = new SolrQuery();
 		query.setQuery(arg0);
 		// query.addFilterQuery("cat:electronics","store:amazon.com");
@@ -358,7 +375,7 @@ public class SOLRReader implements IReader {
 		// String query = "item_commodity_classification_mix: *\"" + arg0 + "\"*";
 		String query = "commodityClassficationUri: *\"" + arg0 + "\"*";
 
-		Object response = queryIntensionalConcepts(query);
+		Object response = queryIntensionalItem(query);
 		// List<String> result = createResultList(response,
 		// "item_commodity_classification_mix");
 		List<String> result = createResultList(response, "commodityClassficationUri");
