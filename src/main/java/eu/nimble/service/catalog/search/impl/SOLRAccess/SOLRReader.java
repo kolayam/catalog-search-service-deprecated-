@@ -277,7 +277,7 @@ public class SOLRReader implements IReader {
 		query.setStart(0);
 		// query.set("defType", "edismax");
 		try {
-			QueryResponse response = clientForIntensionalQueriesConcepts.query(query);
+			QueryResponse response = itemClient.query(query);
 			return response;
 		} catch (Exception e) {
 			e.printStackTrace();
